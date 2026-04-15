@@ -1,6 +1,7 @@
 import { FormSchema } from "../utils/validation";
 import FormFieldComponent from "./FormFieldComponent";
 import FieldControls from "./FieldControls";
+import ProgressBar from "./ProgressBar";
 
 interface FormRendererProps {
   schema: FormSchema;
@@ -30,14 +31,23 @@ export default function FormRenderer({
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-1">
+      <ProgressBar schema={schema} formValues={formValues} />
       <div className="mb-6">
-        <h2 className="font-display text-2xl font-bold text-foreground">{schema.title}</h2>
-        <p className="text-muted-foreground text-sm mt-1">{schema.description}</p>
+        <h2 className="font-display text-2xl font-bold text-foreground">
+          {schema.title}
+        </h2>
+        <p className="text-muted-foreground text-sm mt-1">
+          {schema.description}
+        </p>
       </div>
 
       <div className="space-y-4">
         {schema.fields.map((field, index) => (
-          <div key={field.id} className="fb-field-card group" id={`field-${field.id}`}>
+          <div
+            key={field.id}
+            className="fb-field-card group"
+            id={`field-${field.id}`}
+          >
             <FieldControls
               index={index}
               total={schema.fields.length}
@@ -58,9 +68,7 @@ export default function FormRenderer({
 
       {schema.fields.length > 0 && (
         <div className="pt-4">
-          <button type="submit" className="fb-btn-primary w-full text-base py-3">
-            Submit Form
-          </button>
+          <button type="submit" className="fb-btn-primary w-full text-base py-3"> Submit Form </button>
         </div>
       )}
     </form>
