@@ -37,7 +37,7 @@ export default function FormRenderer({
 
       <div className="space-y-4">
         {schema.fields.map((field, index) => (
-          <div key={field.id} className="fb-field-card" id={`field-${field.id}`}>
+          <div key={field.id} className="fb-field-card group" id={`field-${field.id}`}>
             <FieldControls
               index={index}
               total={schema.fields.length}

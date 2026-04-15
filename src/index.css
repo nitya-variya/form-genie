@@ -132,7 +132,7 @@
     @apply px-3 py-2 rounded-lg text-sm font-medium border border-border bg-card text-foreground hover:border-primary hover:text-primary transition-all duration-200 cursor-pointer;
   }
   .fb-field-card {
-    @apply relative p-4 rounded-lg border border-border bg-card hover:border-primary/30 transition-all duration-200 group;
+    @apply relative p-4 rounded-lg border border-border bg-card hover:border-primary/30 transition-all duration-200;
   }
   .fb-overlay {
     @apply fixed inset-0 bg-foreground/40 backdrop-blur-sm z-40 flex items-center justify-center;
