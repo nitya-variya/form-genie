@@ -33,7 +33,9 @@ export default function Index() {
   const [showJsonEditor, setShowJsonEditor] = useState(false);
   const [showAddFieldPanel, setShowAddFieldPanel] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submittedData, setSubmittedData] = useState<Record<string, unknown>>({});
+  const [submittedData, setSubmittedData] = useState<Record<string, unknown>>(
+    {},
+  );
   const [promptHistory, setPromptHistory] = useState<string[]>(loadHistory);
 
   useEffect(() => {
@@ -42,24 +44,32 @@ export default function Index() {
     }
   }, [schema]);
 
-  const handleGenerate = useCallback(async (prompt: string) => {
-    setIsLoading(true);
-    setApiError("");
-    setIsSubmitted(false);
-    try {
-      const result = await generateFormSchema(prompt);
-      setSchema(result);
-      setFormValues({});
-      setFormErrors({});
-      const newHistory = [prompt, ...promptHistory.filter((h) => h !== prompt)].slice(0, 5);
-      setPromptHistory(newHistory);
-      saveHistory(newHistory);
-    } catch (err) {
-      setApiError(err instanceof Error ? err.message : "Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [promptHistory]);
+  const handleGenerate = useCallback(
+    async (prompt: string) => {
+      setIsLoading(true);
+      setApiError("");
+      setIsSubmitted(false);
+      try {
+        const result = await generateFormSchema(prompt);
+        setSchema(result);
+        setFormValues({});
+        setFormErrors({});
+        const newHistory = [
+          prompt,
+          ...promptHistory.filter((h) => h !== prompt),
+        ].slice(0, 5);
+        setPromptHistory(newHistory);
+        saveHistory(newHistory);
+      } catch (err) {
+        setApiError(
+          err instanceof Error ? err.message : "Something went wrong",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [promptHistory],
+  );
 
   const handleFieldChange = (id: string, value: unknown) => {
     setFormValues((prev) => ({ ...prev, [id]: value }));
@@ -187,7 +197,9 @@ export default function Index() {
               <>
                 <div className="fb-card p-5">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-display text-sm font-semibold text-foreground">Tools</h3>
+                    <h3 className="font-display text-sm font-semibold text-foreground">
+                      Tools
+                    </h3>
                   </div>
                   <div className="space-y-2">
                     <div className="flex gap-2">
@@ -220,11 +232,12 @@ export default function Index() {
               <div className="fb-card p-12 text-center">
                 <div className="text-5xl mb-4">✦</div>
                 <h2 className="font-display text-2xl font-bold text-foreground mb-2">
-                  Build Forms with AI
+                  Build Forms with AI information
                 </h2>
                 <p className="text-muted-foreground max-w-md mx-auto">
-                  Describe the form you need in plain English and let AI generate it instantly.
-                  Edit, customize, and export to HTML or React.
+                  Describe the form you need in plain English and let AI
+                  generate it instantly. Edit, customize, and export to HTML or
+                  React.
                 </p>
               </div>
             )}
